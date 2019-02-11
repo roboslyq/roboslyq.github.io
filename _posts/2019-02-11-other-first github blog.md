@@ -32,7 +32,9 @@ author: roboslyq
 * 考驾照
 * 多看非技术书籍，提高自己的各方面能力
 
-```
-public static void
+```java
+public static void main(String[] args) {
+    System.out.println("Hello world");
+}
 
 ```
