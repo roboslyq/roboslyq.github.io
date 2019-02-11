@@ -6,7 +6,8 @@ tags:  personal schedule 个人 计划
 author: roboslyq
 ---
 
-@toc
+* content
+{:toc}
 
 ## 前言
 
@@ -15,11 +16,3 @@ author: roboslyq
 希望自己能坚持下去！！！
 
 # 工作技能学习
-
-
-
-
-
-
-
-
