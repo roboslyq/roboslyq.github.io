@@ -10,17 +10,7 @@ type: page
 {:toc}
 
 ## 关于我
-            _               _
-           | |             | |
-  _ __ ___ | |__   ___  ___| |_   _  __ _
- | '__/ _ \| '_ \ / _ \/ __| | | | |/ _` |
- | | | (_) | |_) | (_) \__ \ | |_| | (_| |
- |_|  \___/|_.__/ \___/|___/_|\__, |\__, |
-                               __/ |   | |
-                              |___/    |_|
-
-[^_^]:
-<iframe src="https://roboslyq.github.io/images/about%20me/roboslyq.jpg" style="border: 0;height: 142px;width: 600px;overflow: hidden;" frameBorder="0"></iframe>*/
+<iframe src="https://roboslyq.github.io/images/aboutMe/roboslyq.jpg" style="border: 0;height: 142px;width: 600px;overflow: hidden;" frameBorder="0"></iframe>*/
 
 就职于互联网金融领域，熟悉互联网金融相关系统建设，比如支付，银行渠道等。
 
@@ -34,7 +24,7 @@ type: page
 * GitHub：[roboslyq](https://github.com/roboslyq)
 * QQ：454520071
 * WX
-![roboslyq](https://roboslyq.github.io/images/about%20me/wx.jpg)
+![roboslyq](https://roboslyq.github.io/images/aboutMe/wx.jpg)
 
 ## 关于本站
 
