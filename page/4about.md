@@ -10,8 +10,17 @@ type: page
 {:toc}
 
 ## 关于我
+            _               _
+           | |             | |
+  _ __ ___ | |__   ___  ___| |_   _  __ _
+ | '__/ _ \| '_ \ / _ \/ __| | | | |/ _` |
+ | | | (_) | |_) | (_) \__ \ | |_| | (_| |
+ |_|  \___/|_.__/ \___/|___/_|\__, |\__, |
+                               __/ |   | |
+                              |___/    |_|
 
-<iframe src="https://roboslyq.github.io/images/about%20me/roboslyq.jpg" style="border: 0;height: 142px;width: 600px;overflow: hidden;" frameBorder="0"></iframe>
+[^_^]:
+<iframe src="https://roboslyq.github.io/images/about%20me/roboslyq.jpg" style="border: 0;height: 142px;width: 600px;overflow: hidden;" frameBorder="0"></iframe>*/
 
 就职于互联网金融领域，熟悉互联网金融相关系统建设，比如支付，银行渠道等。
 
@@ -23,13 +32,9 @@ type: page
 ## 联系我
 
 * GitHub：[roboslyq](https://github.com/roboslyq)
-* email：roboslyq126@126.com
-* [Weibo](http://weibo.com/3115521wh)
-* [知乎](https://www.zhihu.com/people/roboslyq)
-* [Facebook](https://www.facebook.com/roboslyq.water)
-* [Twitter](https://twitter.com/roboslyq126)
-* [豆瓣](https://www.douban.com/people/42525035/)
-* [豆瓣音乐人-浩阳的小站](https://site.douban.com/haoyangaiyinyue/)
+* QQ：454520071
+* WX
+![roboslyq](https://roboslyq.github.io/images/about%20me/wx.jpg)
 
 ## 关于本站
 
