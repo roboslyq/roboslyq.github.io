@@ -10,7 +10,8 @@ type: page
 {:toc}
 
 ## 关于我
-<iframe src="https://roboslyq.github.io/images/aboutMe/roboslyq.jpg" style="border: 0;height: 142px;width: 600px;overflow: hidden;" frameBorder="0"></iframe>*/
+
+![roboslyq](https://roboslyq.github.io/images/aboutMe/roboslyq.jpg)
 
 就职于互联网金融领域，熟悉互联网金融相关系统建设，比如支付，银行渠道等。
 
@@ -24,6 +25,7 @@ type: page
 * GitHub：[roboslyq](https://github.com/roboslyq)
 * QQ：454520071
 * WX
+
 ![roboslyq](https://roboslyq.github.io/images/aboutMe/wx.jpg)
 
 ## 关于本站
