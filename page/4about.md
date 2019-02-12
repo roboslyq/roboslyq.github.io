@@ -11,7 +11,7 @@ type: page
 
 ## 关于我
 
-![roboslyq](https://roboslyq.github.io/images/aboutMe/roboslyq.jpg)
+![roboslyq](../images/aboutMe/roboslyq.jpg)
 
 就职于互联网金融领域，熟悉互联网金融相关系统建设，比如支付，银行渠道等。
 
