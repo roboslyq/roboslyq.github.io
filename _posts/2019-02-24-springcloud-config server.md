@@ -32,9 +32,10 @@ Dependencies = Web Actuator Config Server
 
 ![springinitializer1](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/springinitializer1.jpg)
 
-##导入IDEA
+## 导入IDEA
+
 解压上面生成的压缩包，目录结构如下：
-![springinitializer1](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/springinitializer2.jpg)
+![springinitializer2](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/springinitializer2.jpg)
 
 将其导入IDEA(在IDEA中直接打开pom.xml文件即可)
 
@@ -111,6 +112,81 @@ Dependencies = Web Actuator Config Server
 		</repository>
 	</repositories>
 </project>
+```
+## 添加相关配置
+### 本地git配置
+#### appplication.properties
+修改`application.properties`,添加如下配置：
+```
+#应用名称
+spring.appliacion.name = spring-cloud-config-server
+#服务端口
+server.port = 8080
+#actuator配置
+management.endpoints.enabled-by-default = false
+management.endpoint.env.enabled=true
+management.endpoint.health.enabled=true
+management.endpoint.info.enabled=true
+management.endpoints.web.exposure.include = env
+
+#spring cloud config配置
+spring.cloud.config.server.git.uri = ${user.dir}/src/main/resources/configs
+
+```
+> git.uri当然可以写绝对路径，但为了保证通用性建议使用${user.dir}。在IDEA环境下，user.dir为当前项目所在路径。
+
+#### 新建配置文件
+
+![springinitializer3](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/configs.jpg)
+
+分别在每个配置文件中添加配置项
+```
+#default
+roboslyq.user.name = roboslyq
+#dev
+roboslyq.user.name = roboslyq.dev
+#prod
+roboslyq.user.name = roboslyq.prod
+```
+#### 将上述文件添加到git控制
+```
+robos@ROBOSLYQ MINGW64 /d/IdeaProjects_community/spring-cloud-config-server/src/main/resources/configs
+$ git init
+Initialized empty Git repository in D:/IdeaProjects_community/spring-cloud-config-server/src/main/resources/configs/.git/
+
+robos@ROBOSLYQ MINGW64 /d/IdeaProjects_community/spring-cloud-config-server/src/main/resources/configs (master)
+$ git add .
+warning: LF will be replaced by CRLF in roboslyq.properties.
+The file will have its original line endings in your working directory
+
+robos@ROBOSLYQ MINGW64 /d/IdeaProjects_community/spring-cloud-config-server/src/main/resources/configs (master)
+$ git commit -m "spring cloud config demo"
+[master (root-commit) e195202] spring cloud config demo
+ 3 files changed, 4 insertions(+)
+ create mode 100644 roboslyq-dev.properties
+ create mode 100644 roboslyq-prod.properties
+ create mode 100644 roboslyq.properties
+
+robos@ROBOSLYQ MINGW64 /d/IdeaProjects_community/spring-cloud-config-server/src/main/resources/configs (master)
+
+```
+#### 启动类启用配置中心
+```
+package com.roboslyq.springcloudconfigserver;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.config.server.EnableConfigServer;
+
+@SpringBootApplication
+@EnableConfigServer
+public class SpringCloudConfigServerApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringCloudConfigServerApplication.class, args);
+	}
+
+}
 ```
 
 #参考资料
