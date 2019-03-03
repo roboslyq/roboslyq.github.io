@@ -15,6 +15,8 @@ author: roboslyq
 # 环境搭建
 ## [SPRING INITIALIZR](https://start.spring.io/)
 如果是从0开始搭建springBoot(springCloud基于springboot搭建)相关项目，强烈推荐[SPRING INITIALIZR](https://start.spring.io/)。打开网站，如下图所示：
-![springinitializer](images\spring-cloud\spring-cloud-config)
+
+![springinitializer](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/springinitializer.jpg)
+
 #参考资料
 简书.林湾村龙猫 [https://www.jianshu.com/](https://www.jianshu.com/p/edce8e8c139e)
