@@ -188,6 +188,16 @@ public class SpringCloudConfigServerApplication {
 
 }
 ```
+### 启动项目测试
+
+![start1](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/startlog.jpg)
+
+### 浏览器测试
+
+![start1](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/broswer-test1.jpg)
+
+> 这个结果有点怪，配置文件中的Key和Value没有显示出来。但config-client可以正常获取相应配置。
+我会在后面的config client证明这一点。
 
 #参考资料
 简书.林湾村龙猫 [https://www.jianshu.com/](https://www.jianshu.com/p/edce8e8c139e)
