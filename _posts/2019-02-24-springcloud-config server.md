@@ -83,7 +83,6 @@ Dependencies = Web Actuator Config Server
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -95,7 +94,6 @@ Dependencies = Web Actuator Config Server
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -132,7 +130,6 @@ management.endpoint.info.enabled=true
 management.endpoints.web.exposure.include = env
 #spring cloud config配置
 spring.cloud.config.server.git.uri = ${user.dir}/src/main/resources/configs
-
 ```
 > git.uri当然可以写绝对路径，但为了保证通用性建议使用${user.dir}。在IDEA环境下，user.dir为当前项目所在路径。
 
@@ -175,32 +172,121 @@ robos@ROBOSLYQ MINGW64 /d/IdeaProjects_community/spring-cloud-config-server/src/
 #### 启动类启用配置中心
 
 ```java
-
 package com.roboslyq.springcloudconfigserver;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.config.server.EnableConfigServer;
-
 @SpringBootApplication
 @EnableConfigServer
 public class SpringCloudConfigServerApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(SpringCloudConfigServerApplication.class, args);
 	}
-
 }
 ```
-### 启动项目测试
+# 启动项目测试
 
 ![start1](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/startlog.jpg)
 
-### 浏览器测试
+## 浏览器测试
 
 ![start1](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/broswer-test1.jpg)
 
 > 这个结果有点怪，配置文件中的Key和Value没有显示出来。但config-client可以正常获取相应配置。
 我会在后面的config client证明这一点。
 
-#参考资料
-简书.林湾村龙猫 [https://www.jianshu.com/](https://www.jianshu.com/p/edce8e8c139e)
+# config Client项目创建
+
+## 创建项目
+具体创建流程与config server一致，只是pom.xml依赖变化如下：
+```xml
+<!-- 配置中心服务器依赖-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-server</artifactId>
+		</dependency>
+```
+客户端配置：
+```xml
+<dependency>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-starter-config</artifactId>
+</dependency>
+```
+
+## 添加相关配置
+### 修改application.properties
+
+```property
+#应用名称
+spring.appliacion.name = spring-cloud-client
+#服务端口
+server.port = 8082
+#actuator配置
+management.endpoints.enabled-by-default = false
+management.endpoint.env.enabled=true
+management.endpoint.refresh.enabled=true
+management.endpoint.health.enabled=true
+management.endpoint.info.enabled=true
+management.endpoints.web.exposure.include = env,refresh
+```
+
+### 添加bootstrap.properties
+```property
+spring.cloud.config.uri = http://localhost:8080/
+spring.application.name = roboslyq
+spring.profiles.active = prod,dev
+```
+
+## 启动测试
+浏览器访问路径：结果如下：
+```json
+{
+"activeProfiles": [
+"prod",
+"dev"
+],
+"propertySources": [
+{
+"name": "server.ports",
+"properties": {
+"local.server.port": {
+"value": 8082
+}
+}
+},
+{
+"name": "configService:configClient",
+"properties": {
+"config.client.version": {
+"value": "e195202741e679352809077d311ae29a64232c11"
+}
+}
+},
+{
+"name": "configService:D:\\IdeaProjects_community\\spring-cloud-config-server/src/main/resources/configs/roboslyq-dev.properties",
+"properties": {
+"roboslyq.user.name": {
+"value": "roboslyq.dev"
+}
+}
+},
+{
+"name": "configService:D:\\IdeaProjects_community\\spring-cloud-config-server/src/main/resources/configs/roboslyq-prod.properties",
+"properties": {
+"roboslyq.user.name": {
+"value": "roboslyq.prod"
+}
+}
+},
+{
+"name": "configService:D:\\IdeaProjects_community\\spring-cloud-config-server/src/main/resources/configs/roboslyq.properties",
+"properties": {
+"roboslyq.user.name": {
+"value": "roboslyq"
+}
+}
+}
+... ... 
+}
+```
