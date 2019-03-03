@@ -18,5 +18,102 @@ author: roboslyq
 
 ![springinitializer](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/springinitializer.jpg)
 
+> Generate a XXX with YYY and Spring Boot ZZZ
+其中XXX指使用Gradle还是Maven进行项目管理。YYY指创建的项目语言是Java，Kotlin或Groovy。ZZZ是指具体的Spring boot版本。
+Spring boot版本一旦确定之后，其它相关依赖也相关确定了。
+
+我们选择录入相关信息如下：
+Group = com.roboslyq
+Artifact = spring-cloud-config-server
+Dependencies = Web Actuator Config Server
+
+最后点击"Generate Project"即可生成相应的项目。
+
+
+![springinitializer1](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/springinitializer1.jpg)
+
+##导入IDEA
+解压上面生成的压缩包，目录结构如下：
+![springinitializer1](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/springinitializer2.jpg)
+
+将其导入IDEA(在IDEA中直接打开pom.xml文件即可)
+
+```properties
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<!-- 标准的Spring boot项目 -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.3.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.roboslyq</groupId>
+	<artifactId>spring-cloud-config-server</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>spring-cloud-config-server</name>
+	<description>Demo project for Spring Boot</description>
+	<!-- 指定Java编译版本及SpringCloud版本 -->
+	<properties>
+		<java.version>1.8</java.version>
+		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+	</properties>
+
+	<dependencies>
+		<!-- actuator依赖导入  -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<!-- spring mvc导入-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- 配置中心服务器依赖-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+		</repository>
+	</repositories>
+
+</project>
+```
+
 #参考资料
 简书.林湾村龙猫 [https://www.jianshu.com/](https://www.jianshu.com/p/edce8e8c139e)
