@@ -113,12 +113,13 @@ Dependencies = Web Actuator Config Server
 	</repositories>
 </project>
 ```
+
 ## 添加相关配置
 ### 本地git配置
 #### appplication.properties
 修改`application.properties`,添加如下配置：
 
-```properties
+```property
 #应用名称
 spring.appliacion.name = spring-cloud-config-server
 #服务端口
@@ -129,7 +130,6 @@ management.endpoint.env.enabled=true
 management.endpoint.health.enabled=true
 management.endpoint.info.enabled=true
 management.endpoints.web.exposure.include = env
-
 #spring cloud config配置
 spring.cloud.config.server.git.uri = ${user.dir}/src/main/resources/configs
 
@@ -142,7 +142,7 @@ spring.cloud.config.server.git.uri = ${user.dir}/src/main/resources/configs
 
 分别在每个配置文件中添加配置项
 
-```properties
+```property
 #default
 roboslyq.user.name = roboslyq
 #dev
@@ -173,9 +173,10 @@ robos@ROBOSLYQ MINGW64 /d/IdeaProjects_community/spring-cloud-config-server/src/
 
 ```
 #### 启动类启用配置中心
-```java
-package com.roboslyq.springcloudconfigserver;
 
+```java
+
+package com.roboslyq.springcloudconfigserver;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.config.server.EnableConfigServer;
