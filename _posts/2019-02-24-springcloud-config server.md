@@ -60,7 +60,6 @@ Dependencies = Web Actuator Config Server
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
 	</properties>
-
 	<dependencies>
 		<!-- actuator依赖导入  -->
 		<dependency>
@@ -111,7 +110,6 @@ Dependencies = Web Actuator Config Server
 			<url>https://repo.spring.io/milestone</url>
 		</repository>
 	</repositories>
-
 </project>
 ```
 
