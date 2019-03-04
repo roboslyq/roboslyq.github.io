@@ -122,7 +122,7 @@ Spring boot版本一旦确定之后，其它相关依赖也相关确定了。
 #### appplication.properties
 修改`application.properties`,添加如下配置：
 
-```property
+```properties
 #应用名称
 spring.appliacion.name = spring-cloud-config-server
 #服务端口
