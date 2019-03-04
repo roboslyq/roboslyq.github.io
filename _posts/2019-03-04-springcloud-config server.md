@@ -10,7 +10,11 @@ author: roboslyq
 {:toc}
 
 # 前言
-本系列文章主要是以实超为主，后续会有单独的系列来分析具体的实现原理。
+本系列文章主要是以环境搭建实操为主，后续会有单独的系列来分析具体的实现原理。
+
+本篇是本系列的文章第一篇，因此讲得有点啰嗦，一些细节操作问题会有提到。后续文章会化繁为简，一些基本的
+
+操作可以参考此篇文章。
 
 # 环境搭建
 ## [SPRING INITIALIZR](https://start.spring.io/)
@@ -23,9 +27,9 @@ author: roboslyq
 Spring boot版本一旦确定之后，其它相关依赖也相关确定了。
 
 我们选择录入相关信息如下：
-Group = com.roboslyq
-Artifact = spring-cloud-config-server
-Dependencies = Web Actuator Config Server
+​	Group = com.roboslyq
+​	Artifact = spring-cloud-config-server
+​	Dependencies = Web Actuator Config Server
 
 最后点击"Generate Project"即可生成相应的项目。
 
@@ -35,6 +39,7 @@ Dependencies = Web Actuator Config Server
 ## 导入IDEA
 
 解压上面生成的压缩包，目录结构如下：
+
 ![springinitializer2](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/springinitializer2.jpg)
 
 将其导入IDEA(在IDEA中直接打开pom.xml文件即可)
@@ -135,11 +140,11 @@ spring.cloud.config.server.git.uri = ${user.dir}/src/main/resources/configs
 
 #### 新建配置文件
 
-![configs](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/configs.jpg)
+![configs](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/configs.png)
 
 分别在每个配置文件中添加配置项
 
-```property
+```properties
 #default
 roboslyq.user.name = roboslyq
 #dev
@@ -148,7 +153,7 @@ roboslyq.user.name = roboslyq.dev
 roboslyq.user.name = roboslyq.prod
 ```
 #### 将上述文件添加到git控制
-```
+```shell
 robos@ROBOSLYQ MINGW64 /d/IdeaProjects_community/spring-cloud-config-server/src/main/resources/configs
 $ git init
 Initialized empty Git repository in D:/IdeaProjects_community/spring-cloud-config-server/src/main/resources/configs/.git/
@@ -186,7 +191,7 @@ public class SpringCloudConfigServerApplication {
 ```
 # 启动项目测试
 
-![start1](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/startlog.jpg)
+![start](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/startlog.png)
 
 ## 浏览器测试
 
@@ -201,12 +206,13 @@ public class SpringCloudConfigServerApplication {
 具体创建流程与config server一致，只是pom.xml依赖变化如下：
 ```xml
 <!-- 配置中心服务器依赖-->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-config-server</artifactId>
-		</dependency>
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-config-server</artifactId>
+</dependency>
 ```
-客户端配置：
+**客户端配置**
+
 ```xml
 <dependency>
   <groupId>org.springframework.cloud</groupId>
@@ -217,7 +223,7 @@ public class SpringCloudConfigServerApplication {
 ## 添加相关配置
 ### 修改application.properties
 
-```property
+```properties
 #应用名称
 spring.appliacion.name = spring-cloud-client
 #服务端口
@@ -232,7 +238,7 @@ management.endpoints.web.exposure.include = env,refresh
 ```
 
 ### 添加bootstrap.properties
-```property
+```properties
 spring.cloud.config.uri = http://localhost:8080/
 spring.application.name = roboslyq
 spring.profiles.active = prod,dev
@@ -287,6 +293,5 @@ spring.profiles.active = prod,dev
 }
 }
 }
-... ... 
 }
 ```
