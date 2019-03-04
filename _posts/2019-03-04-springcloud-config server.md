@@ -9,15 +9,15 @@ author: roboslyq
 * content
 {:toc}
 
-# 前言
+# 1. 前言
 本系列文章主要是以环境搭建实操为主，后续会有单独的系列来分析具体的实现原理。
 
 本篇是本系列的文章第一篇，因此讲得有点啰嗦，一些细节操作问题会有提到。后续文章会化繁为简，一些基本的
 
 操作可以参考此篇文章。
 
-# config server端环境搭建
-## [SPRING INITIALIZR](https://start.spring.io/)
+# 2. config server端环境搭建
+## 2.1 [SPRING INITIALIZR](https://start.spring.io/)
 如果是从0开始搭建springBoot(springCloud基于springboot搭建)相关项目，强烈推荐[SPRING INITIALIZR](https://start.spring.io/)。打开网站，如下图所示：
 
 ![springinitializer](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/springinitializer.jpg)
@@ -36,11 +36,15 @@ Spring boot版本一旦确定之后，其它相关依赖也相关确定了。
 
 ![springinitializer1](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/springinitializer1.jpg)
 
-## 导入IDEA
+## 2.2 导入IDEA
+
+### 2.2.1 项目结构
 
 解压上面生成的压缩包，目录结构如下：
 
 ![springinitializer2](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/springinitializer2.jpg)
+
+### 2.2.2 POM依赖
 
 将其导入IDEA(在IDEA中直接打开pom.xml文件即可)
 
@@ -117,9 +121,9 @@ Spring boot版本一旦确定之后，其它相关依赖也相关确定了。
 </project>
 ```
 
-## 添加相关配置
-### 本地git配置
-#### appplication.properties
+## 2.3 添加相关配置
+### 2.3.1 本地git配置
+#### 2.3.1.1 appplication.properties
 修改`application.properties`,添加如下配置：
 
 ```properties
@@ -138,7 +142,7 @@ spring.cloud.config.server.git.uri = ${user.dir}/src/main/resources/configs
 ```
 > git.uri当然可以写绝对路径，但为了保证通用性建议使用${user.dir}。在IDEA环境下，user.dir为当前项目所在路径。
 
-#### 新建配置文件
+#### 2.3.1.2 新建配置文件
 
 ![configs](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/configs.png)
 
@@ -152,7 +156,7 @@ roboslyq.user.name = roboslyq.dev
 #prod
 roboslyq.user.name = roboslyq.prod
 ```
-#### 将上述文件添加到git控制
+#### 2.3.1.3 添加到git控制
 ```shell
 robos@ROBOSLYQ MINGW64 /d/IdeaProjects_community/spring-cloud-config-server/src/main/resources/configs
 $ git init
@@ -174,7 +178,7 @@ $ git commit -m "spring cloud config demo"
 robos@ROBOSLYQ MINGW64 /d/IdeaProjects_community/spring-cloud-config-server/src/main/resources/configs (master)
 
 ```
-#### 启动类启用配置中心
+#### 2.3.1.4启动类启用配置中心
 
 ```java
 package com.roboslyq.springcloudconfigserver;
@@ -189,20 +193,20 @@ public class SpringCloudConfigServerApplication {
 	}
 }
 ```
-#### 启动项目测试
+#### 2.3.1.5 启动项目测试
 
 ![start](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/startlog.png)
 
-#### 浏览器测试
+#### 2.3.1.6 浏览器测试
 
 ![start1](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/broswer-test1.jpg)
 
 > 这个结果有点怪，配置文件中的Key和Value没有显示出来。但config-client可以正常获取相应配置。
 我会在后面的config client证明这一点。
 
-### 远程GIT配置
+### 2.3.2 远程GIT配置
 
-#### application.properties修改
+#### 2.3.2.1 application.properties修改
 
 将`spring.cloud.config.server.git.uri`的值换成`https://github.com/roboslyq/tmp.git`。此前提是在自己的github上开立账号并且建立一个可以的仓库。
 
@@ -230,15 +234,22 @@ spring.cloud.config.server.git.force-pull = true
 spring.cloud.config.server.git.refreshRate = 1
 ```
 
-#### 远程仓库配置
+#### 2.3.2.2远程仓库配置
 
 ![github_localres](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/github_remote.jpg)
 
-#### 远程仓库测试结果
+#### 2.3.2.3 远程仓库测试
+
+测试路径:[http://localhost:8080/config/roboslyq-prod/master](http://localhost:8080/config/roboslyq-prod/master)
+
+测试结果如下：
 
 ![github_remoteres](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/github_remoteres.jpg)
 
-## 创建项目
+# 3. Config Client环境搭建
+
+## 3.1 创建项目
+
 具体创建流程与config server一致，只是pom.xml依赖变化如下：
 ```xml
 <!-- 配置中心服务器依赖-->
@@ -257,8 +268,8 @@ spring.cloud.config.server.git.refreshRate = 1
 </dependency>
 ```
 
-## 添加相关配置
-### 修改application.properties
+## 3.2 添加相关配置
+### 3.2.1 修改application.properties
 
 ```properties
 #应用名称
@@ -274,7 +285,7 @@ management.endpoint.info.enabled=true
 management.endpoints.web.exposure.include = env,refresh
 ```
 
-### 添加bootstrap.properties
+### 3.2.2 添加bootstrap.properties
 ```properties
 spring.cloud.config.uri = http://localhost:8080/
 spring.application.name = roboslyq
@@ -297,7 +308,7 @@ spring.profiles.active = prod,dev
 > /{label}/{application}-{profile}.properties
 > ```
 
-## 修改application.properties
+### 3.2.3 修改application.properties
 
 ```java
 package com.roboslyq.springcloudconfigclient;
@@ -335,7 +346,7 @@ public class SpringCloudConfigClientApplication {
 
 
 
-## 启动测试
+## 3.3 启动测试
 
 浏览器访问路径：http://localhost:8082/actuator/env
 
@@ -397,3 +408,176 @@ public class SpringCloudConfigClientApplication {
 
 ![github_localres](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/github_localres.jpg)
 
+
+
+# 4. Config Client自动更新
+
+## 4.1 手动刷新
+
+此刷新依赖于actuator框架。上面讲述的例子已经引入了此框架。依赖引入如下：
+
+```xml
+<!-- actuator依赖导入  -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+```
+
+刷新之前，参数结果如下：
+
+![refresh1-before](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/refresh1-before.jpg)
+
+当Git的配置文件更新后
+
+```properties
+roboslyq.user.name = roboslyq.dev.refreshed
+```
+
+再执行刷新操作：
+
+* 请求路径 http://localhost:8082/actuator/refresh
+
+* 请求方式 POST
+
+* 工具 Postman
+
+  ![refresh1-before](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/refresh1-refresh.jpg)
+
+刷新后结果如下：
+
+![refresh1-before](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/refresh1-refreshed.jpg)
+
+## 4.2 定时任务刷新
+
+### 4.2.1 原理分析
+
+此原理十分简单，即将上面的路径 http://localhost:8082/actuator/refresh包装为定时任务执行即可。
+
+我们通过RefreshEndpoint找到上述请求对应的源码信息：
+
+```java
+package org.springframework.cloud.endpoint;
+import java.util.Collection;
+import java.util.Set;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
+import org.springframework.cloud.context.refresh.ContextRefresher;
+/**
+ * @author Dave Syer
+ * @author Venil Noronha
+ */
+@Endpoint(id = "refresh")
+public class RefreshEndpoint {
+    //刷新器
+	private ContextRefresher contextRefresher;
+    //构造器注入刷新器
+	public RefreshEndpoint(ContextRefresher contextRefresher) {
+		this.contextRefresher = contextRefresher;
+	}
+	@WriteOperation
+	public Collection<String> refresh() {
+        //执行刷新操作
+		Set<String> keys = contextRefresher.refresh();
+		return keys;
+	}
+}
+```
+
+从源码可以，刷新操作是通过`ContextRefresher.refresh()`来实现的。
+
+### 4.2.2 代码改造
+
+所以我们将上述请求包装为自动任务执行：
+
+```java
+package com.roboslyq.springcloudconfigclient;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.context.refresh.ContextRefresher;
+import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import java.util.Set;
+@SpringBootApplication
+//开启定时任务
+@EnableScheduling
+@RestController
+public class SpringCloudConfigClientApplication {
+    //注入刷新器
+	@Autowired
+	private ContextRefresher contextRefresher;
+
+	private int count = 0;
+	//每100ms执行一次刷新
+	@Scheduled(fixedRate = 100)
+	private void refreshedConfig(){
+		System.out.println("第" + count++ +"次更新配置");
+        //刷新配置
+		Set<String> keys = contextRefresher.refresh();
+		System.out.println(keys.toString());
+	}
+	@Value("${roboslyq.user.name}")
+	private String userName;
+
+	@Autowired
+	Environment environment;
+
+	@RequestMapping("/getUser")
+	public String user() {
+        String realTimeUserName = environment.getProperty("roboslyq.user.name");
+		return "@valueName = "+userName+"<br/> envName = "+ realTimeUserName ;
+	}
+	public static void main(String[] args) {
+		SpringApplication.run(SpringCloudConfigClientApplication.class, args);
+	}
+
+}
+
+```
+
+### 4.2.3 GIT配置文件更新
+
+```properties
+roboslyq.user.name = roboslyq.dev.refreshedbyscheduled
+```
+
+### 4.2.3 控制台日志分析
+
+```
+第37次更新配置
+2019-03-04 23:27:41.107  INFO 6188 --- [   scheduling-1] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$429b4846] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-04 23:27:41.409  INFO 6188 --- [   scheduling-1] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://localhost:8080/config
+2019-03-04 23:27:55.430  INFO 6188 --- [   scheduling-1] c.c.c.ConfigServicePropertySourceLocator : Located environment: name=roboslyq, profiles=[prod,dev], label=null, version=f1c880b132d9387a215ad386113fd73efaaba724, state=null
+2019-03-04 23:27:55.430  INFO 6188 --- [   scheduling-1] b.c.PropertySourceBootstrapConfiguration : Located property source: CompositePropertySource {name='configService', propertySources=[MapPropertySource {name='configClient'}, MapPropertySource {name='https://github.com/roboslyq/tmp.git/roboslyq-dev.properties'}, MapPropertySource {name='https://github.com/roboslyq/tmp.git/roboslyq-prod.properties'}, MapPropertySource {name='https://github.com/roboslyq/tmp.git/roboslyq.properties'}]}
+2019-03-04 23:27:55.431  INFO 6188 --- [   scheduling-1] o.s.boot.SpringApplication               : The following profiles are active: prod,dev
+2019-03-04 23:27:55.438  INFO 6188 --- [   scheduling-1] o.s.boot.SpringApplication               : Started application in 14.668 seconds (JVM running for 249.036)
+[config.client.version, roboslyq.user.name]
+第38次更新配置
+2019-03-04 23:27:55.806  INFO 6188 --- [   scheduling-1] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$429b4846] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-04 23:27:56.123  INFO 6188 --- [   scheduling-1] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://localhost:8080/config
+2019-03-04 23:27:57.844  INFO 6188 --- [   scheduling-1] c.c.c.ConfigServicePropertySourceLocator : Located environment: name=roboslyq, profiles=[prod,dev], label=null, version=f1c880b132d9387a215ad386113fd73efaaba724, state=null
+2019-03-04 23:27:57.844  INFO 6188 --- [   scheduling-1] b.c.PropertySourceBootstrapConfiguration : Located property source: CompositePropertySource {name='configService', propertySources=[MapPropertySource {name='configClient'}, MapPropertySource {name='https://github.com/roboslyq/tmp.git/roboslyq-dev.properties'}, MapPropertySource {name='https://github.com/roboslyq/tmp.git/roboslyq-prod.properties'}, MapPropertySource {name='https://github.com/roboslyq/tmp.git/roboslyq.properties'}]}
+2019-03-04 23:27:57.845  INFO 6188 --- [   scheduling-1] o.s.boot.SpringApplication               : The following profiles are active: prod,dev
+2019-03-04 23:27:57.852  INFO 6188 --- [   scheduling-1] o.s.boot.SpringApplication               : Started application in 2.382 seconds (JVM running for 251.45)
+[]
+```
+
+上面是部分日志，因为系统是一直在运行的，所以在第几次更新的配置文件不确定。从上面的日志可知在第**37**次时更新到了配置文件。
+
+### 4.2.4 浏览器验证
+
+
+
+![refresh1-before](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/refresh2-schedule-refreshed.jpg)
+
+
+
+## 4.3 注解`@RefreshScope`刷新
+
+**TODO**
