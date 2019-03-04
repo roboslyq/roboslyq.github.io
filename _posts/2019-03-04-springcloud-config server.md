@@ -16,7 +16,7 @@ author: roboslyq
 
 操作可以参考此篇文章。
 
-# 环境搭建
+# config server端环境搭建
 ## [SPRING INITIALIZR](https://start.spring.io/)
 如果是从0开始搭建springBoot(springCloud基于springboot搭建)相关项目，强烈推荐[SPRING INITIALIZR](https://start.spring.io/)。打开网站，如下图所示：
 
@@ -189,18 +189,54 @@ public class SpringCloudConfigServerApplication {
 	}
 }
 ```
-# 启动项目测试
+#### 启动项目测试
 
 ![start](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/startlog.png)
 
-## 浏览器测试
+#### 浏览器测试
 
 ![start1](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/broswer-test1.jpg)
 
 > 这个结果有点怪，配置文件中的Key和Value没有显示出来。但config-client可以正常获取相应配置。
 我会在后面的config client证明这一点。
 
-# config Client项目创建
+### 远程GIT配置
+
+#### application.properties修改
+
+将`spring.cloud.config.server.git.uri`的值换成`https://github.com/roboslyq/tmp.git`。此前提是在自己的github上开立账号并且建立一个可以的仓库。
+
+```properties
+#应用名称
+spring.appliacion.name = spring-cloud-config-server
+#服务端口
+server.port = 8080
+#actuator配置
+management.endpoints.enabled-by-default = false
+management.endpoint.env.enabled=true
+management.endpoint.health.enabled=true
+management.endpoint.info.enabled=true
+management.endpoints.web.exposure.include = env
+
+#spring cloud config配置
+#spring.cloud.config.server.git.uri = ${user.dir}/src/main/resources/configs
+#配置config请求前缀，防止与其它请求冲突
+spring.cloud.config.server.prefix = /config
+#github地址，可以添加用户名和密码
+spring.cloud.config.server.git.uri = https://github.com/roboslyq/tmp.git
+#就否强制更新
+spring.cloud.config.server.git.force-pull = true
+#更新频率
+spring.cloud.config.server.git.refreshRate = 1
+```
+
+#### 远程仓库配置
+
+![github_localres](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/github_remote.jpg)
+
+#### 远程仓库测试结果
+
+![github_remoteres](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/github_remoteres.jpg)
 
 ## 创建项目
 具体创建流程与config server一致，只是pom.xml依赖变化如下：
@@ -214,6 +250,7 @@ public class SpringCloudConfigServerApplication {
 **客户端配置**
 
 ```xml
+<!-- 配置中心客户端依赖导入 -->
 <dependency>
   <groupId>org.springframework.cloud</groupId>
   <artifactId>spring-cloud-starter-config</artifactId>
@@ -244,8 +281,66 @@ spring.application.name = roboslyq
 spring.profiles.active = prod,dev
 ```
 
+> spring.cloud.config.uri与config Server端的IP与端口相对应。
+>
+> spring.application.name与config Server端维护的git仓库配置文件相对应。
+>
+> spring.profiles.active是config Server维护的版本应用配置的版本应用。
+>
+> config Server中配置的git路径下的配置文件与具体客户端应用的映射关系如下：
+>
+> ```
+> /{application}/{profile}[/{label}]
+> /{application}-{profile}.yml
+> /{label}/{application}-{profile}.yml
+> /{application}-{profile}.properties
+> /{label}/{application}-{profile}.properties
+> ```
+
+## 修改application.properties
+
+```java
+package com.roboslyq.springcloudconfigclient;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+@RestController
+public class SpringCloudConfigClientApplication {
+    //配置中心配置的变量名称
+	@Value("${roboslyq.user.name}")
+	private String userName;
+	//从env中获取配置参数，可以实现参数动态更新
+	@Autowired
+	Environment environment;
+	//模拟获取用户信息，返回一个字符串。
+    //@valueName不能实现动态更新，需要重启服务器。environment.getProperty可以实现动态更新。
+	@RequestMapping("/getUser")
+	public String user() {
+        String realTimeUserName = environment.getProperty("roboslyq.user.name");
+		return "@valueName = "+userName+"<br/> envName = "+ realTimeUserName ;
+	}
+	public static void main(String[] args) {
+		SpringApplication.run(SpringCloudConfigClientApplication.class, args);
+	}
+}
+
+```
+
+
+
 ## 启动测试
-浏览器访问路径：结果如下：
+
+浏览器访问路径：http://localhost:8082/actuator/env
+
+结果如下：
+
 ```json
 {
 "activeProfiles": [
@@ -295,3 +390,10 @@ spring.profiles.active = prod,dev
 }
 }
 ```
+
+访问路径：http://localhost:8082/getUser
+
+结果如下：
+
+![github_localres](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/github_localres.jpg)
+
