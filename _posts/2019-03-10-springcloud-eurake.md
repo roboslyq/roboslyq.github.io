@@ -74,7 +74,7 @@ eureka.client.serviceUrl.defaultZone = http://${eureka.instance.hostname}:${serv
 
 访问测试路径：`http://localhost:8082/`
 
-![eureka-console](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/eureka-console.jpg)
+![eureka-console](https://roboslyq.github.io/images/spring-cloud/spring-cloud-eureka/eureka-console.jpg)
 
 # 3 客户端环境搭建
 
@@ -130,6 +130,6 @@ eureka.client.serviceUrl.defaultZone = http://localhost:8082/eureka/
 
 刷新服务端测试路径：`http://localhost:8082/`
 
-![eureka-client](https://roboslyq.github.io/images/spring-cloud/spring-cloud-config/eureka-client.png)
+![eureka-client](https://roboslyq.github.io/images/spring-cloud/spring-cloud-eureka/eureka-client.png)
 
 此图表明服务已经注册成功。
