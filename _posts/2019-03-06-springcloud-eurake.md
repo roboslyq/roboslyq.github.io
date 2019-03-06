@@ -14,7 +14,7 @@ author: roboslyq
 
 # 2. 服务端环境搭建
 
-环境搭建具体步骤请参考本系列文章第一篇[SpringCloud应用系列(一)config配置中心](https://roboslyq.github.io/2019/03/04/springcloud-config-server/)。
+环境搭建具体步骤请参考本系列文章第一篇[SpringCloud应用系列(1)config配置中心](https://roboslyq.github.io/2019/03/04/springcloud-config-server/)。
 
 ## 2.1 依赖导入
 
