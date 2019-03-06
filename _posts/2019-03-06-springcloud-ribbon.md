@@ -113,3 +113,81 @@ eureka.client.serviceUrl.defaultZone=http://localhost:8082/eureka/
 
 ![eureka-console](https://roboslyq.github.io/images/spring-cloud/spring-cloud-ribbon/eureka-invoked-ribbon.png)
 
+# 4. 负载均衡实现
+
+> 在前端的基础上，修改服务服务提供者的端口，启动多个提供者。然后再进行消费。
+
+## 4.1 修改服务提供者代码
+
+```java
+package com.roboslyq.springcloudeurekaclient;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@SpringBootApplication
+//启用服务发瑞客户端
+@EnableDiscoveryClient
+@RestController
+public class SpringCloudEurekaClientApplication {
+	@Value("${server.port}")
+	private int serverPort;
+	//测试请求使用
+	@RequestMapping(value ="/hello",method = RequestMethod.GET)
+	public String home() {
+		return  "hello:" + serverPort;
+	}
+	public static void main(String[] args) {
+		SpringApplication.run(SpringCloudEurekaClientApplication.class, args);
+	}
+
+}
+```
+
+> 注入当前启动服务的端口，并且返回给调用者。调用者可以通过端口区分具体调用了哪个服务提供者。
+
+##　4.2 调整服务提供启动端口
+
+可以通过mvn工具打成jar包，然后指定启动端口。或者直接在IDEA，修改启动端口，如下图所示：
+
+![eureka-console](https://roboslyq.github.io/images/spring-cloud/spring-cloud-ribbon/change-server-port.png)
+
+## 4.3 调整消费消费代码
+
+```java
+package com.springcloudribbonclient.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+@RestController
+public class ConsumerController {
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @GetMapping(value = "/hello")
+    public String hello() {
+        String result = restTemplate.getForEntity("http://SPRING-CLOUD-EUREKA-CLIENT/hello", String.class).getBody();
+        System.out.println(result);
+        return  result;
+    }
+}
+```
+
+> 添加打印代码，打印服务提供者返回信息
+
+## 4.4测试结果
+
+![eureka-console](https://roboslyq.github.io/images/spring-cloud/spring-cloud-ribbon/ribbon-loadbalance.png)
