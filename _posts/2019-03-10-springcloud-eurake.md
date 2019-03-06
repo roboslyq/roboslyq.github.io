@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "SpringCloud应用系列(二)eureka服务治理"
+title:  "SpringCloud应用系列(2)eureka服务治理"
 categories: springCloud
 tags:  springCloud eureka
 author: roboslyq
@@ -10,7 +10,7 @@ author: roboslyq
 {:toc}
 # 1.文章列表
 
-1. [SpringCloud应用系列(一)config配置中心](https://roboslyq.github.io/2019/03/04/springcloud-config-server/)
+1. [SpringCloud应用系列(1)config配置中心](https://roboslyq.github.io/2019/03/04/springcloud-config-server/)
 
 # 2. 服务端环境搭建
 

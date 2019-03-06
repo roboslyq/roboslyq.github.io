@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "SpringCloud应用系列(一)config配置中心"
+title:  "SpringCloud应用系列(1)config配置中心"
 categories: springCloud
 tags:  springCloud config
 author: roboslyq

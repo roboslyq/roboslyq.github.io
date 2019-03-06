@@ -10,8 +10,8 @@ author: roboslyq
 {:toc}
 # 1.文章列表
 
-1. [SpringCloud应用系列(一)config配置中心](https://roboslyq.github.io/2019/03/04/springcloud-config-server/)
-2. [SpringCloud应用系列(二)eureka服务治理](https://roboslyq.github.io/2019/03/10/springcloud-eurake/)
+1. [SpringCloud应用系列(1)config配置中心](https://roboslyq.github.io/2019/03/04/springcloud-config-server/)
+2. [SpringCloud应用系列(2)eureka服务治理](https://roboslyq.github.io/2019/03/10/springcloud-eurake/)
 
 # 2. 项目依赖
 
@@ -191,3 +191,5 @@ public class ConsumerController {
 ## 4.4测试结果
 
 ![eureka-console](https://roboslyq.github.io/images/spring-cloud/spring-cloud-ribbon/ribbon-loadbalance.png)
+
+由结果可见，对服务提供者实现比较均衡的轮询调用。
