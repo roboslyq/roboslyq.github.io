@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "SpringCloud应用系列(4.2) hystrix服务保护"
+title:  "SpringCloud应用系列(4.1) hystrix与Ribbon"
 categories: springCloud
 tags:  springCloud hystrix
 author: roboslyq
@@ -13,8 +13,8 @@ author: roboslyq
 
 1. [SpringCloud应用系列(1)config配置中心](https://roboslyq.github.io/2019/03/04/springcloud-config-server/)
 2. [SpringCloud应用系列(2)eureka服务治理](https://roboslyq.github.io/2019/03/10/springcloud-eurake/)
-3. [SpringCloud应用系列(4.1) ribbon服务调用](https://roboslyq.github.io/2019/03/06/springcloud-ribbon/)
-4. [SpringCloud应用系列(4.2) feign负载均衡](https://roboslyq.github.io/2019/03/10/springcloud-feign/)
+3. [SpringCloud应用系列(3.1) ribbon服务调用](https://roboslyq.github.io/2019/03/06/springcloud-ribbon/)
+4. [SpringCloud应用系列(3.2) feign负载均衡](https://roboslyq.github.io/2019/03/10/springcloud-feign/)
 
 # 2.相关项目
 
