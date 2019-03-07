@@ -1,8 +1,11 @@
+---
 layout: post
 title:  "SpringCloud应用系列(4.2) hystrix服务保护"
 categories: springCloud
 tags:  springCloud hystrix
 author: roboslyq
+---
+
 
 * content
 {:toc}
@@ -13,7 +16,7 @@ author: roboslyq
 3. [SpringCloud应用系列(4.1) ribbon服务调用](https://roboslyq.github.io/2019/03/06/springcloud-ribbon/)
 4. [SpringCloud应用系列(4.2) feign负载均衡](https://roboslyq.github.io/2019/03/10/springcloud-feign/)
 
-# 2.相关项目 
+# 2.相关项目
 
 - 注册中心：spring-cloud-eureka
 - 服务提供者：spring-cloud-eureka-client
@@ -77,9 +80,9 @@ public class SpringCloudHystrixApplication {
 > @Inherited
 > @EnableCircuitBreaker
 > public @interface EnableHystrix {
-> 
+>
 > }
-> 
+>
 > ```
 
 ## 3.3 application.properties配置
@@ -106,7 +109,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class HystrixRibbonService {
-    
+
     @Autowired
     private RestTemplate restTemplate;
 
