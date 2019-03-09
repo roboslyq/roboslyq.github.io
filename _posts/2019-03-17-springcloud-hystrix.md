@@ -80,9 +80,9 @@ public class SpringCloudHystrixApplication {
 > @Inherited
 > @EnableCircuitBreaker
 > public @interface EnableHystrix {
->
+> 
 > }
->
+> 
 > ```
 
 ## 3.3 application.properties配置
