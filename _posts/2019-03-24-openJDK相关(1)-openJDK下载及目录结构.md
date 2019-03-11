@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "SpringCloud应用系列(4.2) hystrix服务保护"
-categories: springCloud
-tags:  springCloud hystrix
+title:  "openJDK相关(1)-openJDK下载及目录结构"
+categories: openJDK相关
+tags:  openJDK相关 openJDK下载及目录结构
 author: roboslyq
 ---
 * content
@@ -19,7 +19,7 @@ author: roboslyq
 
 ```
 |-openjdk
-	|- common
+    |- common
     |— corba
     |— hotspot
     |— jaxp
@@ -181,15 +181,15 @@ src/
   >
   > gc_implementation，GC 实现代码。
   >
-  > > concurrentMarkSweep，Concurrent Mark Sweep GC 的实现代码。
+  >concurrentMarkSweep，Concurrent Mark Sweep GC 的实现代码。
   >
-  > > g1，Garbage-First GC 的实现代码。
+  >g1，Garbage-First GC 的实现代码。
   >
-  > > parallelScavenge，ParallelScavenge GC 的实现代码（Server VM 的默认 GC）。
+  >parallelScavenge，ParallelScavenge GC 的实现代码（Server VM 的默认 GC）。
   >
-  > > parNew，ParNew GC 的实现代码。
+  >parNew，ParNew GC 的实现代码。
   >
-  > > shared，GC 的通用实现代码。
+  >shared，GC 的通用实现代码。
   >
   > gc_interface，GC 接口。
   >
@@ -227,7 +227,5 @@ src/
 # 参考资料
 
 [jdk源码剖析一：OpenJDK-Hotspot源码包目录结构](https://www.cnblogs.com/dennyzhangdd/p/6734933.html)
-
 [jdk源码剖析二: 对象内存布局、synchronized终极原理](https://www.cnblogs.com/dennyzhangdd/p/6734638.html)
-
 [OpenJDK 源码目录结构](https://www.cnblogs.com/reghao/p/8419444.html)
