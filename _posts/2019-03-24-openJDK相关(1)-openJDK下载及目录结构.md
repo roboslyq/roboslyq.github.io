@@ -13,31 +13,37 @@ author: roboslyq
 
 ![downLoad](../images/java-core/open-jdk/download-path.jpg)
 
+如果下载有很慢或者报错(外网吗，可以理解），可以从我的百度网盘下载：
+
+```
+链接：https://pan.baidu.com/s/1LKjP8BYnBLRwR2WnZ7SUTw 
+提取码：fhwk 
+```
+
 # 二、目录结构分析
 
 ##  **openJdk总目录**
 
 ```
-|-openjdk
-    |- common
-    |— corba
-    |— hotspot
-    |— jaxp
-    |— jaxws
-    |— jdk：
-    |— langtools
-    |— nashorn
+├─common
+├─corba
+├─hotspot
+├─jaxp
+├─jaxws
+├─jdk
+├─langtools
+├─nashorn
 ```
-
-> Hotspot：全称 Java HotSpot Performance Engine，是 Java 虚拟机的一个实现，包含了服务器版和桌面应用程序版。利用 JIT 及自适应优化技术（自动查找性能热点并进行动态优化）来提高性能。
 
 - **corba**
 
-  不流行的多语言、分布式通讯接口。全称为 Common Object Request Broker Architecture（通用对象请求代理架构），基于对象-服务机制设计，类似于 JavaBean 和微软的 COM 技术。
+  不流行的**多语言分布式通讯接口**。全称为 Common Object Request Broker Architecture（通用对象请求代理架构），基于对象-服务机制设计，类似于 JavaBean 和微软的 COM 技术。
 
 - **hostspot**
 
   Java 虚拟机( JVM源码包)
+
+  > Hotspot：全称 Java HotSpot Performance Engine，是 Java 虚拟机的一个实现，包含了服务器版和桌面应用程序版。利用 JIT 及自适应优化技术（自动查找性能热点并进行动态优化）来提高性能。
 
 - **jaxp**
 
@@ -101,7 +107,7 @@ share/
 
 - back、instrument、javavm、npt、transport 等目录包含了实现 Java 的基础部分的 C++ 源码，在这里可以从最底层理解 Java。
 
-##  hotspot（JVM）目录结构**
+##  hotspot（JVM）目录结构
 
 hotspot 目录包含了 JVM 的实现， HotSpot VM 的实现源码位于 hotspot/src 目录，其目录结构如下所示：
 
@@ -219,8 +225,8 @@ src/
 
 
 
-> - JDK包中的java类对应的本地方法实现路径`openjdk\jdk\src\share\native\`。例如`java.lang.Object`对象中所使用的本地方法对应的c语言实现为"`openjdk\jdk\src\share\native\java\lang\Object.c"。
-> - 在windows环境下同步锁synchronize对应源码为`openjdk\hotspot\src\os_cpu\windows_x86\vm\atomic_windows_x86.inline.hpp`
+
+>  JDK包中的java类对应的本地方法实现路径`openjdk\jdk\src\share\native\`。例如`java.lang.Object`对象中所使用的本地方法对应的c语言实现为"`openjdk\jdk\src\share\native\java\lang\Object.c"。在windows环境下同步锁synchronize对应源码为`openjdk\hotspot\src\os_cpu\windows_x86\vm\atomic_windows_x86.inline.hpp`
 
 
 
