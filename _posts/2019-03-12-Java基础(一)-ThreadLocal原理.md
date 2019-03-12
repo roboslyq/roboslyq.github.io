@@ -68,15 +68,15 @@ Process finished with exit code 0
 
 # 3. Set过程
 
-![set](E:/git-workspace/gitboke/roboslyq.github.io/images/java-core/thread-material/set.jpg)
+![set](../images/java-core/thread-material/set.jpg)
 
 # 4. get过程
 
-![set](E:/git-workspace/gitboke/roboslyq.github.io/images/java-core/thread-material/get.jpg)
+![set](../images/java-core/thread-material/get.jpg)
 
 # 5.数据结构
 
-![set](E:/git-workspace/gitboke/roboslyq.github.io/images/java-core/thread-material/data_struct.jpg)
+![set](../images/java-core/thread-material/data_struct.jpg)
 
 
 
