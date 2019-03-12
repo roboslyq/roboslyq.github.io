@@ -1,6 +1,8 @@
 # Class类结构分析
 
-# 源码
+# 1. 源码
+
+再进行class类文件结构分析，我们先生成相应的class文件。本文使用的java源码如下：
 
 ```java
 package com.roboslyq.jdk.lang;
