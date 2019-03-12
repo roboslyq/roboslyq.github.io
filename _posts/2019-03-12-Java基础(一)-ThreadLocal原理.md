@@ -72,11 +72,11 @@ Process finished with exit code 0
 
 # 4. get过程
 
-![set](../images/java-core/thread-material/get.jpg)
+![get](../images/java-core/thread-material/get.jpg)
 
 # 5.数据结构
 
-![set](../images/java-core/thread-material/data_struct.jpg)
+![data_struct](../images/java-core/thread-material/data_struct.jpg)
 
 
 
