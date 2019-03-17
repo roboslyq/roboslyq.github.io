@@ -9,7 +9,9 @@ author: roboslyq
 {:toc}
 # 一、源码下载
 
-请移到官网下载[http://hg.openjdk.java.net/](http://hg.openjdk.java.net/jdk8/jdk8/jdk)下载。如下图所示，下载`zip`即可。
+## 源码下载
+
+请移到[官网](http://openjdk.java.net)下载[http://hg.openjdk.java.net/](http://hg.openjdk.java.net/jdk8/jdk8/jdk)下载。如下图所示，下载`zip`即可。
 
 ![downLoad](../images/java-core/open-jdk/download-path.jpg)
 
@@ -19,6 +21,13 @@ author: roboslyq
 链接：https://pan.baidu.com/s/1LKjP8BYnBLRwR2WnZ7SUTw 
 提取码：fhwk 
 ```
+
+```mermaid
+graph LR
+A --> b
+```
+
+
 
 # 二、目录结构分析
 
