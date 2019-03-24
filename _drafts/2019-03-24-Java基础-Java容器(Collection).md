@@ -1,0 +1,110 @@
+---
+layout: post
+title:  "Java基础之Java容器(Collection)"
+categories: Java基础
+tags:  Java基础 Collection
+author: roboslyq
+---
+* content
+{:toc}
+# 一、基本概念
+
+> java 体系中，Map不属于Collection体系，是一类体系的集合。所以此文章不涉及Map。
+
+## 集合(Collection)
+
+> A *collection* — sometimes called a container — is simply an object that groups multiple elements into a single unit. Collections are used to store, retrieve, manipulate, and communicate aggregate data. 
+
+集合也叫容器，一个简单的对象，可以将多个同类型的元素封装在一起。集合(可以有多种不同实现)可提供对多个对象进行统一存储、检索、操作和聚合操作等功能。这个概念与语言无关，不仅在Java体系中需要，在C++,C#,Physon等语言体系中也有同样的概念。
+
+## 集合框架(CF)
+
+此定义与语言无关，集合框架(CF,Collections Framework)是一个统一呈现和操作**多种集合**的架构。一个集合框架主要包括以下三方面：
+
+- **Interfaces:** 接口，表示集合的抽象数据类型。接口定义了对多种不同集合的统一操作，而屏蔽了不同集合具体表示的细节。在面向对象的语言中，接口通常形成层次结构。 
+- **Implementations:** 集合接口的具体实现。是一种可重用的数据结构。 
+- **Algorithms:** 算法，是集合接口(Interfaces)的不同实现(Implementations)的具体实现，比如元素检索和排序等。当然，同一个算法可以应用于不同的集合接口实现，算法是可以重用的。
+
+## Java集合框架(JCF)
+
+**JCF**(Java Collections Framework ), Java版本的集合框架实现，使用此框架有以下益处：
+
+- **减少编程工作量**
+
+  当然，JDK给提供了一些通用的集合实现，不需要每个开发人员自己实现相关代码，编程工作量当然少了。
+
+- **提高编程速度和质量**
+
+  JDK原生提供，质量是有保证的。统一接口调用，编程速度了不会差。
+
+- **允许不相关api之间的互操作性 **
+
+  因为集合可以有多种不同的实现，JCF提供了不同实现互操的API。
+
+- **减少学习和使用新api的工作量 **
+
+- **减少设计新api的工作 **
+
+- **促进软件重用**
+
+  符合标准集合接口的新数据结构本质上是可重用的。对实现这些接口的对象进行操作的新算法也是如此。 
+
+# 二、JCF接口体系
+
+![hierarchical](..\images\java-core\collection\1.jpg)
+
+
+
+| 名称           | 描述                                             | 常用方法                                                     |
+| -------------- | ------------------------------------------------ | ------------------------------------------------------------ |
+| `Iterable`     | 允许所有实现有拥有`for-each loop`循环遍列的能力  | `iterator`;`forEach`;`spliterator`                           |
+| `Collection`   | 代表一系列元素或对象，是集合框架的最顶层的接口。 | `contains`;`add`;`remove`;`stream`;<`parallelStream`;`removeAll`;`removeIf` |
+| `List`         | 有序，可重复，可为空                             | `toArray`;`sort`;`indexOf`;`lastIndexOf`;<`get`;`set`;`addALl`;`subList` |
+| `Queue`        | 保存元素可以有优先级                             | `element`,`peek`,`poll`,`offer`                              |
+| `Deque`        | 双端队列                                         | `addXXX`,`getXXX`,`offerXXX`,`peekXXX`,`pollXXX`,<`pop`,`push`,`removeXXX` (`XXX`指First或Last) |
+| `Set`          | 无序，不可重复，可以包含一个NULL                 | 没有新方法                                                   |
+| `SortedSet`    | 有序的Set                                        | `first`,`last`,`headSet`,`tailSet`,`subSet`                  |
+| `NavigableSet` | TODO                                             | TODO                                                         |
+|                |                                                  |                                                              |
+
+# 三、JCF常用实现
+
+![hierarchical](..\images\java-core\collection\2.jpg)
+
+| 实现                                   | 抽象数据结构 | 数据结构                                                     | 性能（大O表示）                                              |
+| -------------------------------------- | ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `ArrayList`  (sync)                    | List         | Array of objects. A new array is created and populated whenever elements are added beyond the current length (capacity) of the underlying array. | **add(E element) :** [O(1)](https://www.logicbig.com/quick-info/software-engineering/big-o-notation.html) . 如果超出容量: [O(n)](https://www.logicbig.com/quick-info/software-engineering/big-o-notation.html) .  **remove(int index)**: O(n - index), 移除最后一个元素 O(1). **get(int index)**: [O(1)](https://www.logicbig.com/quick-info/software-engineering/big-o-notation.html) . |
+| `LinkedList`  (sync)                   | List, Deque  | 双向队列[Doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list). 每个元素有prev和next引用 | **get(int index), remove(int index)**: O(n) **add(E element) and others**: 常量 O(1). |
+| `Vector`  (sync) (Legacy)              | List         | 与数组`ArrayList`相似                                        | 与`Arraylist`相似，但是是线程安全的，使用`synchronization`同步。所以更慢。 |
+| `Stack` extends Vector (sync) (Legacy) | List         | 数组.通过数据实现 [LIFO](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) (Last in first out). | 与Vector/ArrayList 相似，但更慢，因为使用了 synchronisation. |
+| `HashSet`  (sync)                      | Set          | HashMap,其中hashMap中的Key即为HashSet中的元素                | **add, remove, contains, size**: O(1) **Iteration**: O(n + capacity). |
+| `LinkedHashSet`  (sync)                | Set          | LinkedHashMap                                                | **add, remove, contains, size**: O(1) **Iteration**: O(n).   |
+| `TreeSet`  (sync)                      | NavigableSet | TreeMap (红黑树 [red-black tree data structure](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree))。 不为空空。元素作为map的Key。 | **add, remove, contains**: O(log n)  **Iteration**: O(n) slower than HashSet. |
+| `EnumSet`  (sync)                      | Set          | [Bit vectors](https://en.wikipedia.org/wiki/Bit_array)       | **所有方法**： O(1)。非常高效                                |
+| `PriorityQueue`  (sync)                | Queue        | 最小二叉堆 ：[Binary Heap](https://en.wikipedia.org/wiki/Binary_heap) 可以实现自然排序( [natural ordering](https://docs.oracle.com/javase/tutorial/collections/interfaces/order.html) )或者Comparator | **offer, poll, remove() and add**: O(log n)  **remove(Object), contains(Object)** O(n)  **peek, element, and size**: O(1) |
+| `ArrayDeque`  (sync)                   | Dequeue      | 动态数组(Resizable-array),不允许为空                         | **remove, removeFirstOccurrence, removeLastOccurrence, contains, iterator.remove(), and the bulk operations**: O(n) **其它方法** O(1) |
+
+# 四、容器选型
+
+##　非并发容器
+
+![hierarchical](..\images\java-core\collection\3.jpg)
+
+##　并发容器
+
+### Queue选型
+
+![hierarchical](..\images\java-core\collection\4.jpg)
+
+### List选型
+
+![hierarchical](..\images\java-core\collection\5.jpg)
+
+### Set选型
+
+![hierarchical](..\images\java-core\collection\6.jpg)
+
+# 参考资料
+
+- [oracle官网](https://docs.oracle.com/javase/tutorial/collections/intro/index.html )
+- [logicbig](https://www.logicbig.com/tutorials/core-java-tutorial/java-collections/java-collection-cheatsheet.html )
