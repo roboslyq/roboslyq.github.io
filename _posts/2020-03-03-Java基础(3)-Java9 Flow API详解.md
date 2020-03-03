@@ -11,19 +11,20 @@ author: roboslyq
 
 ## 简介
 
-Java9 在`java.util.concurrent.`包中新增了`Flow`这个接口。通过FlowAPI我们仅仅使用JDK就能够搭建响应式应用程序，而不需要其他额外的类库，如RxJava或Project Reactor。
-
-尽管如此，当你看到过接口文档后你就会明白到正如字面所说，这只是一个API而已。她仅仅包含了一些Interface和一个实现类：
+Java9 在`java.util.concurrent.`包中新增了`Flow`这个接口。通过Flow API我们仅仅使用JDK就能够搭建**响应式**应用程序，而不需要其他额外的类库，如RxJava或Project Reactor。并且Flow API完全遵循[Reactive Stream](https://link.jianshu.com?t=http%3A%2F%2Fwww.reactive-streams.org%2F)相关规范。其接口抽象如下：
 
 - Interface `Flow.Publisher`定义了生产数据和控制事件的方法。
 - Interface `Flow.Subscriber`定义了消费数据和事件的方法。
 - Interface `Flow.Subscription` 定义了链接Publisher和Subscriber的方法。
 - Interface `Flow.Processor`定义了转换Publisher到Subscriber的方法
-- 最后，class `SubmissionPublisher`是`Flow.Publisher`的实现，她可以灵活的生产数据，同时与[Reactive Stream](https://link.jianshu.com?t=http%3A%2F%2Fwww.reactive-streams.org%2F)兼容。
 
-虽然Java9中没有很多FlowAPI的实现类可供我们使用，但是依靠这些接口第三方可以提供的响应式编程得到了规范和统一，比如从JDBC driver到RabbitMQ的响应式实现。
+目前，虽然Java9中没有很多FlowAPI的实现类可供我们使用，仅有`SubmissionPublisher`是`Flow.Publisher`的实现。但是依靠这些接口第三方可以提供的响应式编程得到了规范和统一，比如从JDBC driver到RabbitMQ的响应式实现。
+
+> 关于什么是**响应式编程**请自行百度或者Google，本文末尾有一些参考链接，有部分是关于响应式的。
 
 ## Flow 过程图
+
+![1](../images/java-core/flowapi/1.png)
 
 ## Flow.java源码分析
 
@@ -1468,6 +1469,12 @@ private static final class BufferedSubscription<T> ;
 
 ## 参考资料
 
-[reactive-programming-java-9-flow]( https://thepracticaldeveloper.com/2018/01/31/reactive-programming-java-9-flow/ )
+- [reactive-programming-java-9-flow]( https://thepracticaldeveloper.com/2018/01/31/reactive-programming-java-9-flow/ )
 
-[ reactive-streams官网](http://www.reactive-streams.org/)
+- [ reactive-streams官网](http://www.reactive-streams.org/)
+
+- [Download JDK 9](https://jdk9.java.net/)
+- [JDK 9 Flow API javadoc](http://download.java.net/java/jdk9/docs/api/index.html?java/util/concurrent/Flow.html)
+- [Reactive Streams Specification](http://www.reactive-streams.org/)
+- [Reactive Streams API javadoc](http://www.reactive-streams.org/reactive-streams-1.0.0-javadoc/)
+- [The Reactive Manifesto](http://www.reactivemanifesto.org/)
