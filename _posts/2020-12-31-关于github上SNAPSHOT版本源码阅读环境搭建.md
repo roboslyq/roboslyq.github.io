@@ -13,9 +13,9 @@ author: roboslyq
 
 ## 下载SNAPSHOT版
 
-![image-20201231105405755](images/2020-12-31-关于github上SNAPSHOT版本源码阅读环境搭建/image-20201231105405755.png)
+![image-20201231105405755](../images/2020-12-31/2020-12-31-关于github上SNAPSHOT版本源码阅读环境搭建/image-20201231105405755.png)
 
-![image-20201231105559365](images/2020-12-31-关于github上SNAPSHOT版本源码阅读环境搭建/image-20201231105559365.png)
+![image-20201231105559365](../images/2020-12-31/2020-12-31-关于github上SNAPSHOT版本源码阅读环境搭建/image-20201231105559365.png)
 
 刚下载的sanpshot版本使用IDEA打开后，存在两个问题：
 
@@ -125,7 +125,7 @@ author: roboslyq
 >
 > - mvn install -P spring
 
-![image-20201231110617280](images/2020-12-31-关于github上SNAPSHOT版本源码阅读环境搭建/image-20201231110617280.png)
+![image-20201231110617280](../images/2020-12-31/2020-12-31-关于github上SNAPSHOT版本源码阅读环境搭建/image-20201231110617280.png)
 
 上面中有三个比较关键信息http://repo.spring.io/release
 
@@ -163,7 +163,7 @@ author: roboslyq
 
     此处表所有的maven依赖都会进入`http://repo.spring.io/release`查找。因此才会出现上面的错误。注释掉此mirror配置后，再执行`mvnw install -P spring `命令：
 
-  ![image-20201231111321416](images/2020-12-31-关于github上SNAPSHOT版本源码阅读环境搭建/image-20201231111321416.png)
+  ![image-20201231111321416](../images/2020-12-31/2020-12-31-关于github上SNAPSHOT版本源码阅读环境搭建/image-20201231111321416.png)
 
 各个依赖可以正常下载！！！
 
@@ -173,7 +173,7 @@ author: roboslyq
 
 上面命令执行之后，不要以为就成功了，最终还是失败的：
 
-![image-20201231111852522](images/2020-12-31-关于github上SNAPSHOT版本源码阅读环境搭建/image-20201231111852522.png)
+![image-20201231111852522](../images/2020-12-31/2020-12-31-关于github上SNAPSHOT版本源码阅读环境搭建/image-20201231111852522.png)
 
 原因是checkstyle校验不通过！！！
 
@@ -238,4 +238,4 @@ author: roboslyq
 
 > 注释上面的checkstyle plugins和plugin。再执行install命令：
 
-![image-20201231113037952](images/2020-12-31-关于github上SNAPSHOT版本源码阅读环境搭建/image-20201231113037952.png)
+![image-20201231113037952](../images/2020-12-31/2020-12-31-关于github上SNAPSHOT版本源码阅读环境搭建/image-20201231113037952.png)
